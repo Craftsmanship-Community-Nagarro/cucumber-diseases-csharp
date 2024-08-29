@@ -59,20 +59,8 @@ public class CustomerStepDefinitions
 
     [Given("the customer is created")]
     [When("the customer is created")]
-    public void WhenTheCustomerIsCreated()
-    {
-        try
-        {
-            _customerService.AddCustomer(_firstName, _lastName, _birthday);
-        }
-        catch (ArgumentException ex)
-        {
-            _error = ex;
-        }
-    }
-
     [When("an invalid customer is created")]
-    public void WhenAnInvalidCustomerIsCreated()
+    public void WhenTheCustomerIsCreated()
     {
         try
         {
