@@ -22,6 +22,7 @@ public class CustomerStepDefinitions
     public CustomerStepDefinitions(CustomerService customerService)
     {
         _customerService = customerService;
+        _birthday = DefaultBirthday;
     }
 
     [Given("the customer first name is {string}")]
@@ -62,7 +63,7 @@ public class CustomerStepDefinitions
     {
         try
         {
-            _customerService.AddCustomer(_firstName, _lastName, DefaultBirthday);
+            _customerService.AddCustomer(_firstName, _lastName, _birthday);
         }
         catch (ArgumentException ex)
         {
@@ -75,7 +76,7 @@ public class CustomerStepDefinitions
     {
         try
         {
-            _customerService.AddCustomer(_firstName, _lastName, DefaultBirthday);
+            _customerService.AddCustomer(_firstName, _lastName, _birthday);
         }
         catch (ArgumentException ex)
         {
@@ -104,7 +105,7 @@ public class CustomerStepDefinitions
     [Then("the second customer creation should fail")]
     public void ThenTheSecondCustomerCreationShouldFail()
     {
-        var add = () => _customerService.AddCustomer(_secondFirstName, _secondLastName, DefaultBirthday);
+        var add = () => _customerService.AddCustomer(_secondFirstName, _secondLastName, _birthday);
         add.Should()
             .Throw<ArgumentException>()
             .WithMessage("Customer already exists");
@@ -124,13 +125,13 @@ public class CustomerStepDefinitions
     public void GivenThereIsACustomer(Table customerTable)
     {
         var customer = customerTable.Header.ToArray();
-        _customerService.AddCustomer(customer[0], customer[1], DefaultBirthday);
+        _customerService.AddCustomer(customer[0], customer[1], _birthday);
     }
 
     [Given("there are some customers")]
     public void GivenThereAreSomeCustomers(Table customerTable)
     {
-        var customers = customerTable.CreateSet<CustomerData>(() => new CustomerData("John", "Doe", DefaultBirthday));
+        var customers = customerTable.CreateSet<CustomerData>(() => new CustomerData("John", "Doe", _birthday));
         foreach (var customer in customers)
         {
             _customerService.AddCustomer(customer.FirstName, customer.LastName, customer.Birthday);
