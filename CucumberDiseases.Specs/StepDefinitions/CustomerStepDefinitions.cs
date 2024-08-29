@@ -25,18 +25,6 @@ public class CustomerStepDefinitions
         _birthday = DefaultBirthday;
     }
 
-    [Given("the customer first name is {string}")]
-    public void GivenTheCustomerFirstNameIs(string firstName)
-    {
-        _firstName = firstName;
-    }
-
-    [Given("the customer last name is {string}")]
-    public void GivenTheCustomerLastNameIs(string lastName)
-    {
-        _lastName = lastName;
-    }
-
     [Given("the customer's birthday is {DateTime}")]
     public void GivenTheCustomersBirthdayIs(DateTime birthday)
     {
